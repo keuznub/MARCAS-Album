@@ -2,6 +2,8 @@ var cards = document.querySelectorAll(".card");
 var cardsArray = Array.from(cards);
 var imagenCargar = document.getElementById("imagenCargar");
 var descripcion = document.getElementById("descripcion");
+var titulo = document.getElementById("titulo");
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -15,15 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
         var elementNuevo;
         botonView.addEventListener("click", function (e) {
             var descripcionElementHTML = element.querySelector(".descripcion");
+            var titleElementHTML = element.querySelector(".titulo");
+
             imagenCargar.src = imagen.src;
+            titulo.innerHTML = titleElementHTML.innerHTML;
             descripcion.innerHTML = descripcionElementHTML.innerHTML;
         })
         botonEdit.addEventListener("click", function (e) {
             var descripcionElementHTML = element.querySelector(".descripcion");
             var input = document.createElement("textarea");
-            input.rows = 3;
             input.classList.add("form-control");
-            input.value = descripcionElementHTML.innerHTML;
+            input.style.height = "100px;";
+            input.style.marginBottom ="5px";
+            input.value = descripcionElementHTML.textContent.trimStart();
             descripcionElementHTML.replaceWith(input);
             botonAcept.style.display = "block";
             elementNuevo = input;

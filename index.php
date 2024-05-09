@@ -23,9 +23,11 @@
     $arrayCartas = array();
     $conexion = mysqli_connect("localhost","root","","albumdatabase");
     class Carta{
+        private int $id;
         private string $img, $titulo, $descripcion, $time;
-        public function __construct(string $img, string $titulo, string $descripcion, string $time)
+        public function __construct(int $id,string $img, string $titulo, string $descripcion, string $time)
         {
+            $this->id = $id;
             $this->img = $img;
             $this->titulo = $titulo;
             $this->descripcion = $descripcion;
@@ -47,7 +49,7 @@
 
     $result = mysqli_query($conexion, "SELECT * FROM albumtable");
     while($row = mysqli_fetch_row($result)){
-        $cartaNueva = new Carta(base64_encode($row[0]),$row[1],$row[2],$row[3]);
+        $cartaNueva = new Carta($row[0],base64_encode($row[1]),$row[2],$row[3],$row[4]);
         array_push($arrayCartas, $cartaNueva);
     }
     ?>
@@ -101,7 +103,7 @@
                     <h1 class="fw-light">Breixo Album Ejemplo</h1>
                     <p class="lead text-body-secondary">Primera experiencia con bases de datos y HTML</p>
                     <p>
-                        <a href="#" class="btn btn-primary my-2">Subir foto</a>
+                        <a href="upload.html" class="btn btn-primary my-2">Subir foto</a>
                         <a href="#" class="btn btn-secondary my-2">Actualizar Descripciones</a>
                     </p>
                 </div>
@@ -116,6 +118,9 @@
                         <div class="card shadow-sm">
                             <img class="image" src="data:image/png;base64,<?php echo $i->getImg(); ?>" alt="">
                             <div class="card-body">
+                                <h5 class="card-title titulo">
+                                    <?php echo $i->getTitulo();?>
+                                </h5>
                                 <p class="card-text descripcion">
                                     <?php
                                     echo $i->getDescripcion();
@@ -146,13 +151,14 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
+                        <h2 id="titulo"></h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" id="modal-body">
                             <img src="" alt="" id="imagenCargar" width="100%">
                         </div>
                         <div class="modal-footer">
-                            <span id="descripcion">Le has dado "Me gusta" a esta foto</span>
+                            <span id="descripcion"></span>
                         </div>
                     </div>
                 </div>
