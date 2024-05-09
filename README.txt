@@ -9,6 +9,16 @@ description VARCHAR(30),
 last_update DATETIME
 );
 
+INSERT INTO albumtable(imageBlob,tittle,description,last_update)
+VALUES(
+load_file("D:\\xampp\\htdocs\\MARCAS-Album\\imagenes\\facebook.png"),
+"facebook",
+"prueba facebook comentario",
+now()
+);
+SELECT *
+FROM albumtable;
+
 
 
 
