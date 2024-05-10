@@ -19,6 +19,28 @@
 </head>
 
 <body>
+    <?php
+    $conexion = mysqli_connect("localhost","root","","albumdatabase");
+    if(isset($_POST["submitUpload"])){
+        $tituloUpload = $_POST["tituloUpload"];
+        $descripcionUpload = $_POST["descripcionUpload"];
+        $imageUpload0 = file_get_contents($_FILES["imagenUpload"]["tmp_name"]);
+        $imageUpload = $conexion->real_escape_string($imageUpload0);
+        $actualDate = date("Y-m-d H:i:s");
+
+        $statement = $conexion->prepare("INSERT INTO albumtable (imageBlob, tittle, description, last_update) VALUES (?, ?, ?, ?)");
+        $statement->bind_param("ssss", $imageUpload0, $tituloUpload, $descripcionUpload, $actualDate);
+
+        if($statement->execute()){
+            echo "Salio bien";
+            header("Location: index.php?upload=true");
+            exit;
+        }else{
+            echo "Salio mal";
+            
+        }
+    }
+    ?>
     <header data-bs-theme="dark">
         <div class="collapse text-bg-dark" id="navbarHeader">
             <div class="container">
@@ -77,30 +99,35 @@
 
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
-                <form action="index.php" method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data" method="post" onsubmit=" return validate()">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="" required>
-                                <label for="floatingInput">Titulo</label>
+                                <input type="text" name="tituloUpload" class="form-control" id="titulo" placeholder="" required>
+                                <label for="titulo">Titulo</label>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="" required>
-                                <label for="floatingInput">Descripcion</label>
+                                <input type="text" name="descripcionUpload" class="form-control" id="descripcion" placeholder="" required>
+                                <label for="descripcion">Descripcion</label>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-8">
                             <label for="imagen">Elije la imagen</label>
-                            <input type="file" class="form-control" required>
+                            <input type="file" name="imagenUpload" id="imagen" class="form-control" required>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-8">
-                            <input type="submit" class="btn btn-outline-success" value="Subir">
+                            <input type="submit" name="submitUpload" class="btn btn-outline-success" value="Subir">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-sm-8">
+                            <div class="alert alert-danger" id="alerta"></div>
                         </div>
                     </div>
                 </form>
@@ -123,7 +150,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script src="album.js"></script>
+    <script src="upload.js"></script>
 </body>
 
 </html>

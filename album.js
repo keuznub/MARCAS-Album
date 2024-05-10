@@ -1,5 +1,4 @@
-var cards = document.querySelectorAll(".card");
-var cardsArray = Array.from(cards);
+
 var imagenCargar = document.getElementById("imagenCargar");
 var descripcion = document.getElementById("descripcion");
 var titulo = document.getElementById("titulo");
@@ -7,6 +6,16 @@ var titulo = document.getElementById("titulo");
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    var alerta  = document.getElementById("alerta");
+    alerta.style.opacity = "100%";
+    setTimeout(function(e){
+        alerta.style.opacity ="0%";
+    },3500);
+    history.replaceState({},"", "index.php");
+
+    var cards = document.querySelectorAll(".card");
+    var cardsArray = Array.from(cards);
+    console.log(cardsArray);
     cardsArray.forEach(element => {
         var botonView = element.querySelector(".view");
         var botonEdit = element.querySelector(".edit");
@@ -44,6 +53,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 });
+
+
+
+function mensajeError(mensaje){
+    var alerta  = document.getElementById("alerta");
+    alerta.textContent = mensaje;
+    alerta.style.opacity = "100%";
+    setTimeout(function(e){
+        alerta.style.opacity ="0%";
+    },3500);
+    
+}
 
 
 

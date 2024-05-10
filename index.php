@@ -47,11 +47,14 @@
         }
     }
 
+
     $result = mysqli_query($conexion, "SELECT * FROM albumtable");
     while($row = mysqli_fetch_row($result)){
         $cartaNueva = new Carta($row[0],base64_encode($row[1]),$row[2],$row[3],$row[4]);
         array_push($arrayCartas, $cartaNueva);
     }
+
+
     ?>
 
     <header data-bs-theme="dark">
@@ -103,7 +106,7 @@
                     <h1 class="fw-light">Breixo Album Ejemplo</h1>
                     <p class="lead text-body-secondary">Primera experiencia con bases de datos y HTML</p>
                     <p>
-                        <a href="upload.html" class="btn btn-primary my-2">Subir foto</a>
+                        <a href="upload.php" class="btn btn-primary my-2">Subir foto</a>
                         <a href="#" class="btn btn-secondary my-2">Actualizar Descripciones</a>
                     </p>
                 </div>
@@ -144,6 +147,11 @@
                     </div>
                     <?php endforeach; ?>
                 </div>
+                <?php
+                echo var_dump($_GET);
+                 if(isset($_GET["upload"])): ?>
+                <div class="alert alert-success fixed-bottom alertaUploaded" id="alerta" style="opacity: 100% !important;" >Se ha subido con exito</div>
+                <?php endif; ?>
             </div>
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
