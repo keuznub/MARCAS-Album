@@ -7,12 +7,15 @@ var titulo = document.getElementById("titulo");
 
 document.addEventListener("DOMContentLoaded", function () {
     var alerta  = document.getElementById("alerta");
-    alerta.style.opacity = "100%";
+    if(alerta != null){
+        alerta.style.opacity = "100%";
     setTimeout(function(e){
         alerta.style.opacity ="0%";
     },3500);
     history.replaceState({},"", "index.php");
 
+    }
+    
     var cards = document.querySelectorAll(".card");
     var cardsArray = Array.from(cards);
     console.log(cardsArray);
