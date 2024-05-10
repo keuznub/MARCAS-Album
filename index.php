@@ -45,6 +45,9 @@
         public function getTime(){
             return $this->time;
         }
+        public function getId(){
+            return strval($this->id);
+        }
     }
 
 
@@ -118,11 +121,13 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-center">
                     <?php foreach($arrayCartas as $i): ?>
                     <div class="col">
-                        <div class="card shadow-sm">
-                            <img class="image" src="data:image/png;base64,<?php echo $i->getImg(); ?>" alt="">
+                        <div class="card shadow-sm" <?php echo 'cardId='.'"'.$i->getId().'"'; ?>>
+                            <img class="image" src="data:image/png;base64,<?php echo $i->getImg(); ?>" alt="" >
                             <div class="card-body">
                                 <h5 class="card-title titulo">
-                                    <?php echo $i->getTitulo();?>
+                                    <?php echo $i->getTitulo();
+                                    
+                                    ?>
                                 </h5>
                                 <p class="card-text descripcion">
                                     <?php
@@ -130,6 +135,7 @@
                                     
                                     ?>
                                 </p>
+                                
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-secondary view">View</button>
