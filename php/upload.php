@@ -9,7 +9,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
     <title>Album example · Bootstrap v5.3</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -33,7 +33,7 @@
 
         if($statement->execute()){
             echo "Salio bien";
-            header("Location: index.php?upload=true");
+            header("Location: ../index.php?upload=true");
             exit;
         }else{
             echo "Salio mal";
@@ -57,7 +57,7 @@
                                         width="25px"></a></li>
                             <li><a href="#" class="text-white">Like on Facebook<img src="imagenes/facebook.png" alt=""
                                         width="25px"></a></li>
-                            <li><a href="#" class="text-white">Email me <img src="imagenes/instagram.png" alt=""
+                            <li><a href="#" class="text-white">Like on Instagram <img src="imagenes/instagram.png" alt=""
                                         width="25px"></a></li>
                         </ul>
                     </div>
@@ -66,7 +66,7 @@
         </div>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a href="#" class="navbar-brand d-flex align-items-center">
+                <a href="../index.php" class="navbar-brand d-flex align-items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
                         viewBox="0 0 24 24">
@@ -91,7 +91,7 @@
                     <h1 class="fw-light">Subir Imagen</h1>
                     <p class="lead text-body-secondary">Rellena todos los campos y pulsa el boton</p>
                     <p>
-                        <a href="index.php" class="btn btn-primary my-2">Volver al album</a>
+                        <a href="../index.php" class="btn btn-primary my-2">Volver al album</a>
                     </p>
                 </div>
             </div>
@@ -150,7 +150,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <script src="upload.js"></script>
+    <script src="../js/upload.js"></script>
 </body>
 
 </html>

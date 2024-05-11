@@ -2,7 +2,7 @@ function validate(){
     var titulo = document.getElementById("titulo").value;
     var descripcion = document.getElementById("descripcion").value;
     var imagenSplitted = document.getElementById("imagen").value.split(".");
-    var imagen = imagenSplitted[imagenSplitted.length-1];
+    var imagen = strtolower(imagenSplitted[imagenSplitted.length-1]);
     
     if(titulo.length > 10){
         mensajeError("titulo lenght mayor que 10");

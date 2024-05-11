@@ -1,6 +1,7 @@
 
 var imagenCargar = document.getElementById("imagenCargar");
 var descripcion = document.getElementById("descripcion");
+var idInput = document.getElementById("idInput");
 var titulo = document.getElementById("titulo");
 
 
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var descripcionElement = element.querySelector(".descripcion").innerHTML;
         var descripcionElementHTML = element.querySelector(".descripcion");
         var botonAcept = element.querySelector(".acept");
+        var botonDelete = element.querySelector(".delete");
         var elementNuevo;
         botonView.addEventListener("click", function (e) {
             var descripcionElementHTML = element.querySelector(".descripcion");
@@ -33,12 +35,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
             imagenCargar.src = imagen.src;
             titulo.innerHTML = titleElementHTML.innerHTML;
-            descripcion.innerHTML = descripcionElementHTML.innerHTML;
+            descripcion.innerHTML = descripcionElementHTML.textContent;
+            if(descripcionElementHTML.value!=null){
+                descripcion.innerHTML = descripcionElementHTML.value;
+            }
         })
         botonEdit.addEventListener("click", function (e) {
+            
+            botonEdit.disabled = "true";
             var descripcionElementHTML = element.querySelector(".descripcion");
             var input = document.createElement("textarea");
-            input.classList.add("form-control");
+            input.name = "descripcion";
+            input.classList.add("form-control","descripcion");
             input.style.height = "100px;";
             input.style.marginBottom = "5px";
             input.value = descripcionElementHTML.textContent.trimStart();
@@ -46,6 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
             botonAcept.style.display = "block";
             elementNuevo = input;
         })
+        botonAcept.addEventListener("click", function (e) {
+            botonEdit.disabled = "false";
+            guardarPosicionScroll();
+            
+        });
+        
+        /*
         botonAcept.addEventListener("click", function (e) {
             var cardId = element.getAttribute("cardId");
             console.log(cardId);
@@ -55,6 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
             parrafo.textContent = elementNuevo.value;
             elementNuevo.replaceWith(parrafo);
             updateCard(cardId,elementNuevo.value);
+        })
+        */
+        botonDelete.addEventListener("click", function (e) {
+            var cardId = element.getAttribute("cardId");
+            idInput.value = cardId;
+            console.log(idInput.value);
         })
 
     });
@@ -73,23 +94,22 @@ function mensajeError(mensaje) {
 }
 
 
-function updateCard(cardId, descripcionNueva) {
-    const mysql = require('mysql');
-    const connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'albumdatabase'
-    });
-
-    connection.connect(function (err) {
-
-        if (err) throw err;
-        var sql = "UPDATE albumtable SET description = '" + descripcionNueva + "' WHERE id = '" + cardId + "'";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log(result.affectedRows + " record(s) updated");
-        });
-    });
-
+// Función para guardar la posición de desplazamiento en el almacenamiento local
+//CHATGEPETEADA DE MANUAL
+function guardarPosicionScroll() {
+    localStorage.setItem("scrollPosition", window.scrollY);
 }
+
+// Verificar si hay una posición de desplazamiento guardada al cargar la página
+//CHATGEPETEADA DE MANUAL
+window.addEventListener("load", function() {
+    var scrollPosition = localStorage.getItem("scrollPosition");
+    if (scrollPosition !== null) {
+        // Restaurar la posición de desplazamiento guardada
+        window.scrollTo(0, parseInt(scrollPosition));
+        // Limpiar la posición de desplazamiento guardada después de restaurarla
+        localStorage.removeItem("scrollPosition");
+    }
+});
+
+
